@@ -2,34 +2,30 @@ import streamlit as st
 import pandas as pd
 import os
 
+# Definir los sectores disponibles
+sectores = ['comercio', 'construccion', 'servicios', 'turismo', 'alimentacion', 'entretenimiento', 
+            'confeccion', 'finanzas', 'educacion', 'transporte', 'agricultura', 'industria', 'automotriz']
 
-# Cargar los archivos CSV de sectores
-sectores = ['comercio', 'construccion', 'servicios', 'turismo', 'alimentacion', 'entretenimiento', 'confeccion', 'finanzas', 'educacion', 'transporte', 'agricultura', 'industria', 'automotriz']
-
-# Cargar la información desde los CSV que están en la misma carpeta que la app
-df_sectores = {}
-
-for sector in sectores:
-    try:
-        df_sectores[sector] = pd.read_csv(f'{sector}.csv')
-    except FileNotFoundError:
-        st.warning(f"Archivo '{sector}.csv' no encontrado.")
-        continue
-
-# Título y descripción
+# Mostrar título y descripción
 st.title("Banco de Información - Datosfera y Jorge Bustamante")
 st.write("""
     Bienvenido al banco de información. Selecciona un sector económico para visualizar los datos correspondientes.
 """)
 
-# Seleccionar sector
-sector_elegido = st.selectbox("Selecciona un sector", sectores)
+# Seleccionar el sector
+sector_seleccionado = st.selectbox("Selecciona un sector", sectores)
 
-# Mostrar los datos del sector elegido
-if sector_elegido in df_sectores:
-    st.write(df_sectores[sector_elegido])
-else:
-    st.write(f"No se encontró información para el sector {sector_elegido}.")
+# Intentar cargar el archivo CSV correspondiente al sector seleccionado
+try:
+    df = pd.read_csv(f'{sector_seleccionado}.csv')
+    st.write(f"Mostrando datos del sector: {sector_seleccionado.capitalize()}")
+    st.write(df)  # Mostrar los datos en la página
+except FileNotFoundError:
+    st.error(f"El archivo para el sector '{sector_seleccionado}' no fue encontrado. Asegúrate de que el archivo '{sector_seleccionado}.csv' esté en la carpeta correcta.")
+
+# Puedes incluir una opción para que el usuario vea una descripción general del sector
+st.subheader(f"Descripción general del sector {sector_seleccionado.capitalize()}")
+st.write(f"Este sector es uno de los más importantes en la economía global, {sector_seleccionado} impacta la sociedad de diversas maneras...")
 
 # Títulos y presentación de la alianza
 st.title("Banco de Información de Datosfera")
