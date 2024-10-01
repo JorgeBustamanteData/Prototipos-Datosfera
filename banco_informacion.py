@@ -2,17 +2,34 @@ import streamlit as st
 import pandas as pd
 import os
 
-# Configuración de rutas
-base_path = 'C:/Users/YO/Desktop/DATOSFERA/'
 
-# Función para cargar los datos según la selección
-def cargar_datos(sector):
-    archivo_csv = os.path.join(base_path, f"{sector}.csv")
-    if os.path.exists(archivo_csv):
-        return pd.read_csv(archivo_csv)
-    else:
-        st.error(f"No se encontró el archivo para el sector: {sector}")
-        return pd.DataFrame()
+# Cargar los archivos CSV de sectores
+sectores = ['comercio', 'construccion', 'servicios', 'turismo', 'alimentacion', 'entretenimiento', 'confeccion', 'finanzas', 'educacion', 'transporte', 'agricultura', 'industria', 'automotriz']
+
+# Cargar la información desde los CSV que están en la misma carpeta que la app
+df_sectores = {}
+
+for sector in sectores:
+    try:
+        df_sectores[sector] = pd.read_csv(f'{sector}.csv')
+    except FileNotFoundError:
+        st.warning(f"Archivo '{sector}.csv' no encontrado.")
+        continue
+
+# Título y descripción
+st.title("Banco de Información - Datosfera y Jorge Bustamante")
+st.write("""
+    Bienvenido al banco de información. Selecciona un sector económico para visualizar los datos correspondientes.
+""")
+
+# Seleccionar sector
+sector_elegido = st.selectbox("Selecciona un sector", sectores)
+
+# Mostrar los datos del sector elegido
+if sector_elegido in df_sectores:
+    st.write(df_sectores[sector_elegido])
+else:
+    st.write(f"No se encontró información para el sector {sector_elegido}.")
 
 # Títulos y presentación de la alianza
 st.title("Banco de Información de Datosfera")
