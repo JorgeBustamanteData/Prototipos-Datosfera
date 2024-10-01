@@ -48,6 +48,9 @@ else:
     variable_2 = st.slider("Variable 2", min_value=0.0, max_value=100.0, value=50.0)
     variable_3 = st.slider("Variable 3", min_value=0.0, max_value=100.0, value=50.0)
 
+# Inicializar df_resultados como None para evitar errores si no se ha ejecutado la simulación
+df_resultados = None
+
 # Botón para simular los resultados
 if st.button("🚀 Simular Resultados"):
     # Generar datos ficticios para la simulación
@@ -80,23 +83,24 @@ if st.button("🚀 Simular Resultados"):
     else:
         st.write("🔍 **Recomendación**: Ninguna variable tuvo un impacto destacado. Revisa las estrategias antes de implementar cambios.")
 
-# Mejoras estéticas para los reportes
-st.subheader("📄 Generación de Reportes")
-st.write("Puedes descargar los resultados de tu experimento en formato CSV.")
+# Condición para permitir la descarga solo si df_resultados existe
+if df_resultados is not None:
+    # Mejoras estéticas para los reportes
+    st.subheader("📄 Generación de Reportes")
+    st.write("Puedes descargar los resultados de tu experimento en formato CSV.")
 
-# Botón para descargar reporte CSV
-csv_buffer = io.StringIO()
-df_resultados.to_csv(csv_buffer, index=False)
+    # Botón para descargar reporte CSV
+    csv_buffer = io.StringIO()
+    df_resultados.to_csv(csv_buffer, index=False)
 
-st.download_button(
-    label="📥 Descargar Reporte en CSV",
-    data=csv_buffer.getvalue(),
-    file_name="resultados_experimento.csv",
-    mime="text/csv",
-)
+    st.download_button(
+        label="📥 Descargar Reporte en CSV",
+        data=csv_buffer.getvalue(),
+        file_name="resultados_experimento.csv",
+        mime="text/csv",
+    )
 
 # Pie de página con la alianza
 st.markdown("---")
 st.markdown("**Este prototipo fue desarrollado por Datosfera en colaboración con Jorge Bustamante**. \nConvierta sus datos en decisiones empresariales estratégicas.")
 st.write("Desarrollado con ❤️ y 💻 por Datosfera")
-
