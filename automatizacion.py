@@ -1,12 +1,15 @@
 import streamlit as st
 import graphviz as graphviz
 
-# Título de la aplicación
-st.title("Prototipo de Automatización de Procesos")
-st.markdown("### Explora cómo automatizar flujos de trabajo con Datosfera y n8n.io")
-st.write("Selecciona un área de tu empresa y un proceso que deseas automatizar para obtener un flujo automatizado sugerido.")
+# Título principal de la aplicación
+st.title("🔧 Prototipo de Automatización de Procesos")
+st.markdown("### Explora cómo automatizar flujos de trabajo con **Datosfera** y **n8n.io**")
+st.write("""
+Selecciona un área de tu empresa y un proceso que deseas automatizar para obtener un flujo de trabajo automatizado sugerido.
+La automatización de procesos permite ahorrar tiempo, reducir errores humanos y mejorar la eficiencia operativa.
+""")
 
-# Crear un diccionario con procesos automatizables por área
+# Diccionario con procesos automatizables por área
 procesos_por_area = {
     'Ventas': ['Automatización de informes de ventas', 'Seguimiento de clientes potenciales', 'Notificaciones de pagos pendientes'],
     'Recursos Humanos': ['Onboarding automatizado de empleados', 'Generación de informes de nómina', 'Seguimiento de evaluaciones de desempeño'],
@@ -21,7 +24,7 @@ area_seleccionada = st.selectbox("Selecciona un área", list(procesos_por_area.k
 proceso_seleccionado = st.selectbox("Selecciona un proceso a automatizar", procesos_por_area[area_seleccionada])
 
 # Mostrar descripción del proceso seleccionado
-st.markdown(f"**Has seleccionado automatizar el proceso de:** **{proceso_seleccionado}** en el área de **{area_seleccionada}**.")
+st.markdown(f"### Has seleccionado automatizar el proceso de: **{proceso_seleccionado}** en el área de **{area_seleccionada}**.")
 
 # Visualización del flujo de trabajo sugerido usando Graphviz
 st.markdown("### Flujo de trabajo automatizado sugerido")
@@ -53,11 +56,19 @@ st.graphviz_chart(flow)
 # Información adicional sobre la alianza con Datosfera y n8n.io
 st.markdown("### Alianza con Datosfera y n8n.io")
 st.write("""
-En Datosfera, somos expertos en la automatización de procesos empresariales con n8n.io, una poderosa herramienta que permite automatizar flujos de trabajo complejos en cualquier área de tu organización.
-Podemos ayudarte a reducir tiempos, errores humanos y maximizar la eficiencia operativa a través de soluciones a medida.
+En **Datosfera**, somos expertos en automatización de procesos empresariales utilizando **n8n.io**, una herramienta flexible 
+y poderosa para crear flujos de trabajo automatizados en cualquier área de tu organización. 
+Desde ventas hasta finanzas, podemos ayudarte a **reducir tiempos**, **eliminar errores humanos** y **optimizar operaciones**.
 """)
-st.markdown("**¿Interesado en llevar la automatización al siguiente nivel?** ¡Contáctanos para una consultoría personalizada!")
 
 # Botón de contacto (opcional)
-if st.button('Solicitar Información'):
-    st.write("Pronto nos pondremos en contacto contigo para hablar sobre tus necesidades de automatización.")
+if st.button('Solicitar más Información'):
+    st.write("Gracias por tu interés. Un miembro de nuestro equipo se pondrá en contacto contigo para discutir cómo implementar la automatización en tu empresa.")
+
+# Pie de página con la alianza
+st.markdown("---")
+st.markdown("**Este prototipo fue desarrollado por Datosfera en colaboración con Jorge Bustamante.**")
+st.write("Transforma tus procesos empresariales con automatización eficiente.")
+
+# Añadir un pie de página adicional
+st.write("Desarrollado con ❤️ por Datosfera")
