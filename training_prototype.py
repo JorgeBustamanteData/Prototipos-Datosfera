@@ -9,8 +9,8 @@ st.markdown("""
 Elige un tipo de entrenamiento para visualizar el progreso y obtener insights adicionales sobre los contenidos abordados.
 """)
 
-# Añadir una imagen representativa de entrenamiento
-st.image("C:/Users/YO/Desktop/DATOSFERA/entrenamiento_banner.png", caption="Entrenamiento en Chatbots y Data Science", use_column_width=True)
+# Añadir la imagen representativa de entrenamiento (imagen que subiste)
+st.image("entrenamiento_banner.png", caption="Entrenamiento en Chatbots y Data Science", use_column_width=True)
 
 # Selección de tipo de entrenamiento
 tipo_entrenamiento = st.selectbox("Selecciona el tipo de entrenamiento", ["Chatbots", "Data Science"])
@@ -25,7 +25,8 @@ if tipo_entrenamiento == "Chatbots":
     - **Integración con Plataformas**: Automatización y despliegue en plataformas como WhatsApp y Facebook.
     """)
     
-    df = pd.read_csv("C:/Users/YO/Desktop/DATOSFERA/chatbot_training.csv")
+    # Cargar el archivo CSV de Chatbots
+    df = pd.read_csv("chatbot_training.csv")
     st.write(df)
     
     # Visualización gráfica del progreso
@@ -44,7 +45,8 @@ elif tipo_entrenamiento == "Data Science":
     - **Machine Learning**: Implementación de algoritmos de aprendizaje automático.
     """)
     
-    df = pd.read_csv("C:/Users/YO/Desktop/DATOSFERA/ds_training.csv")
+    # Cargar el archivo CSV de Data Science
+    df = pd.read_csv("ds_training.csv")
     st.write(df)
     
     # Visualización gráfica del progreso
@@ -53,7 +55,7 @@ elif tipo_entrenamiento == "Data Science":
     fig.update_layout(xaxis_title="Tema", yaxis_title="Progreso (%)")
     st.plotly_chart(fig)
 
-# Insighst adicionales
+# Insights adicionales
 st.markdown("""
 ## 🎯 Insights y Próximos Pasos
 Nuestros sistemas de entrenamiento te permiten seguir el progreso de cada sesión y medir los resultados obtenidos. 
@@ -69,5 +71,5 @@ Nuestros sistemas de entrenamiento te permiten seguir el progreso de cada sesió
 total_progreso = df["Progreso (%)"].mean()
 st.progress(total_progreso / 100)
 
-# Pie de página con imagen alusiva a la alianza
-st.image("C:/Users/YO/Desktop/DATOSFERA/alianza_datosfera.png", caption="Automatización y Entrenamiento con Datosfera", use_column_width=True)
+# Pie de página con la imagen de la alianza (imagen que subiste)
+st.image("alianza_datosfera.png", caption="Automatización y Entrenamiento con Datosfera", use_column_width=True)
