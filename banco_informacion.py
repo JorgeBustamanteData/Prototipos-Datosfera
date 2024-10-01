@@ -17,36 +17,12 @@ sector_seleccionado = st.selectbox("Selecciona un sector", sectores)
 
 # Intentar cargar el archivo CSV correspondiente al sector seleccionado
 try:
+    # Leer el archivo CSV para el sector seleccionado
     df = pd.read_csv(f'{sector_seleccionado}.csv')
-    st.write(f"Mostrando datos del sector: {sector_seleccionado.capitalize()}")
-    st.write(df)  # Mostrar los datos en la página
-except FileNotFoundError:
-    st.error(f"El archivo para el sector '{sector_seleccionado}' no fue encontrado. Asegúrate de que el archivo '{sector_seleccionado}.csv' esté en la carpeta correcta.")
-
-# Puedes incluir una opción para que el usuario vea una descripción general del sector
-st.subheader(f"Descripción general del sector {sector_seleccionado.capitalize()}")
-st.write(f"Este sector es uno de los más importantes en la economía global, {sector_seleccionado} impacta la sociedad de diversas maneras...")
-
-# Títulos y presentación de la alianza
-st.title("Banco de Información de Datosfera")
-st.write("Accede a nuestras bases de datos sectoriales y explora los datos que tu empresa necesita.")
-st.write("**Alianza con Datosfera**: Consulta o solicita análisis específicos basados en datos obtenidos de fuentes confiables para sectores clave.")
-st.write("Selecciona una categoría de datos para comenzar:")
-
-# Opciones de sectores económicos
-sectores = ['comercio', 'construccion', 'servicios', 'turismo', 'alimentacion', 'entretenimiento',
-            'confeccion', 'finanzas', 'educacion', 'transporte', 'agricultura', 'industria', 'automotriz']
-
-# Menú de selección del sector
-sector_seleccionado = st.selectbox("Selecciona un sector económico", sectores)
-
-# Cargar los datos del sector seleccionado
-df = cargar_datos(sector_seleccionado)
-
-# Mostrar los datos si están disponibles
-if not df.empty:
-    st.write(f"**Datos del sector: {sector_seleccionado.capitalize()}**")
-    st.dataframe(df)
+    
+    # Mostrar los datos del sector si el archivo fue encontrado
+    st.write(f"**Mostrando datos del sector: {sector_seleccionado.capitalize()}**")
+    st.dataframe(df)  # Mostrar los datos en la tabla
 
     # Botón para solicitar análisis personalizado
     st.subheader("¿Te interesa un análisis personalizado?")
@@ -54,7 +30,7 @@ if not df.empty:
     
     if st.button("Solicitar Análisis"):
         st.write("¡Gracias por tu interés! Un miembro de nuestro equipo se pondrá en contacto para ofrecerte un análisis personalizado.")
-
+    
     # Mensaje emergente para la compra de base de datos
     st.success(f"¿Te gustaría adquirir la base de datos del sector {sector_seleccionado}? Contáctanos para más información.")
     
@@ -72,8 +48,8 @@ if not df.empty:
         else:
             st.write("Este sector aún no tiene un análisis predictivo automático. Contáctanos para un análisis específico.")
 
-else:
-    st.error(f"No se encontraron datos para el sector: {sector_seleccionado}")
+except FileNotFoundError:
+    st.error(f"El archivo para el sector '{sector_seleccionado}' no fue encontrado. Asegúrate de que el archivo '{sector_seleccionado}.csv' esté en la carpeta correcta.")
 
 # Pie de página
 st.write("---")
