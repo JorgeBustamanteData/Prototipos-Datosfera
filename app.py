@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
 # Cargar el archivo consolidado con todas las bases de datos
-base_path = 'C:/Users/YO/Desktop/DATOSFERA/'
-df_total = pd.read_csv(base_path + 'datos_prototipos_ficticios.csv')
+
+df_total = pd.read_csv('datos_prototipos_ficticios.csv')
 
 # Corregir formato de fecha
 df_total['Fecha'] = pd.to_datetime(df_total['Fecha'], errors='coerce', format='%Y-%m-%d %H:%M:%S.%f')
