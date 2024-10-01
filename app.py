@@ -4,10 +4,16 @@ import plotly.express as px
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+import os
 
-# Cargar el archivo consolidado con todas las bases de datos
 
-df_total = pd.read_csv('datos_prototipos_ficticios.csv')
+# Verificar si el archivo existe en el repositorio
+if os.path.exists('datos_prototipos_ficticios.csv'):
+    df_total = pd.read_csv('datos_prototipos_ficticios.csv')
+    st.write("Archivo cargado correctamente.")
+else:
+    st.write("Error: No se encontró el archivo 'datos_prototipos_ficticios.csv'.")
+
 
 # Corregir formato de fecha
 df_total['Fecha'] = pd.to_datetime(df_total['Fecha'], errors='coerce', format='%Y-%m-%d %H:%M:%S.%f')
