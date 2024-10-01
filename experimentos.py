@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import io
 
 # Título principal con la alianza y diseño más atractivo
 st.title("💡 Prototipo de Experimentación Empresarial")
@@ -81,18 +82,21 @@ if st.button("🚀 Simular Resultados"):
 
 # Mejoras estéticas para los reportes
 st.subheader("📄 Generación de Reportes")
-st.write("Puedes descargar los resultados de tu experimento en formato CSV o generar un PDF.")
+st.write("Puedes descargar los resultados de tu experimento en formato CSV.")
 
-if st.button("📥 Descargar Reporte en CSV"):
-    df_resultados.to_csv('resultados_experimento.csv', index=False)
-    st.write("✅ Reporte CSV generado correctamente.")
+# Botón para descargar reporte CSV
+csv_buffer = io.StringIO()
+df_resultados.to_csv(csv_buffer, index=False)
 
-if st.button("📄 Descargar Reporte en PDF"):
-    st.write("Funcionalidad de PDF aún en desarrollo. Próximamente.")
+st.download_button(
+    label="📥 Descargar Reporte en CSV",
+    data=csv_buffer.getvalue(),
+    file_name="resultados_experimento.csv",
+    mime="text/csv",
+)
 
 # Pie de página con la alianza
 st.markdown("---")
 st.markdown("**Este prototipo fue desarrollado por Datosfera en colaboración con Jorge Bustamante**. \nConvierta sus datos en decisiones empresariales estratégicas.")
-
-# Añadir un pie de página con agradecimientos
 st.write("Desarrollado con ❤️ y 💻 por Datosfera")
+
